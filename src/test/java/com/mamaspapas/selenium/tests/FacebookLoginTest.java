@@ -20,8 +20,6 @@ public class FacebookLoginTest extends AbstractSeleniumTest
 
     private static final String FB_NOT_GRANTED_USER_EMAIL = "zointpr_thurnson_1465123943@tfbnw.net";
     private static final String FB_USER_PASS = "1234qwe";
-    private static final String FB_APP_PAGE_URL = "https://www.facebook.com/settings?tab=applications";
-
 
     private HomePage homePage;
     private FacebookPage facebookPage;
@@ -59,7 +57,7 @@ public class FacebookLoginTest extends AbstractSeleniumTest
     public void testLoginWithGrantAccess()
     {
         deleteAppAccessIfExist(FB_NOT_GRANTED_USER_EMAIL, FB_USER_PASS);
-
+        
     }
 
     //--
@@ -74,12 +72,12 @@ public class FacebookLoginTest extends AbstractSeleniumTest
 
     private void deleteAppAccessIfExist(String username, String pass)
     {
-        driver.get(FB_APP_PAGE_URL);
+        driver.get(UrlFactory.FB_APP_PAGE_URL.pageUrl);
         loginToFacebook(username, pass);
 
         try
         {
-            Assert.assertTrue(facebookPage.noSuchApp.isDisplayed());
+            webDriverWait.until(ExpectedConditions.visibilityOf(facebookPage.noSuchApp));
         }
         catch (NoSuchElementException e)
         {
@@ -90,8 +88,17 @@ public class FacebookLoginTest extends AbstractSeleniumTest
             webDriverWait.until(ExpectedConditions.visibilityOf(facebookPage.confirmRemoveApp));
             facebookPage.confirmRemoveApp.click();
             webDriverWait.until(ExpectedConditions.visibilityOf(facebookPage.noSuchApp));
+            logOutFromFacebook();
         }
+        driver.get(UrlFactory.BASE_URL.pageUrl);
+    }
 
+
+    private void logOutFromFacebook()
+    {
+        driver.get(UrlFactory.FB_BASE_URL.pageUrl);
+        driver.manage().deleteAllCookies();
+        driver.navigate().refresh();
     }
 
 }
