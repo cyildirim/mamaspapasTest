@@ -39,4 +39,10 @@ public class FacebookPage extends PageObject
 
     @FindBy(css = ".uiButtonConfirm")
     public WebElement confirmRemoveApp;
+
+    @FindBy(xpath = "//button[text()='Okay']")
+    public WebElement approveApplication;
+
+    @FindBy(xpath = "//button[text()='Cancel']")
+    public WebElement cancelApplication;
 }
