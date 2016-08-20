@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mamaspapas.selenium.helper.UrlFactory;
+import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -17,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * Created by can on 19/08/16.
@@ -30,7 +32,7 @@ public class CategoryApiTest extends AbstractApiTest
     private JsonObject rootObject;
 
     @Before
-    public void setUp() throws IOException
+    public void setUp() throws IOException, URISyntaxException, HttpException
     {
         request = new HttpGet(UrlFactory.API_CATEGORIES_URL.url);
         logger.info("Request URL = " + UrlFactory.API_CATEGORIES_URL.url);
