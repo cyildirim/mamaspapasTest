@@ -42,7 +42,7 @@ public abstract class AbstractSeleniumTest
     private static final String AJAX_WAIT_SCRIPT = "return typeof jQuery != 'undefined' && jQuery.active != 0";
     private static final Logger logger = Logger.getLogger(AbstractSeleniumTest.class);
     protected static WebDriver driver;
-    private static ChromeDriverService service;
+
 
     @Rule
     public TestRule testRule = new TestWatcher()
@@ -74,20 +74,6 @@ public abstract class AbstractSeleniumTest
     protected WebDriverWait webDriverWait;
     protected HomePage homePage;
 
-    @BeforeClass
-    public static void createAndStartService() throws IOException
-    {
-        service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File("/etc/chromedriver"))
-                .usingAnyFreePort()
-                .build();
-        service.start();
-    }
-
-    @AfterClass
-    public static void createAndStopService() {
-        service.stop();
-    }
     @Before
     public void setUp()
     {
@@ -104,10 +90,10 @@ public abstract class AbstractSeleniumTest
         capabilities.setCapability("enable-restore-session-state", true);
         capabilities.setJavascriptEnabled(true);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        driver = new RemoteWebDriver(service.getUrl(),
-                capabilities);
+        driver = new EventFiringWebDriver(new ChromeDriver(capabilities));
         webDriverWait = new WebDriverWait(driver, 30);
         driver.manage().window().setSize(new Dimension(1200, 800));
+        driver.manage().timeouts().pageLoadTimeout(60,TimeUnit.SECONDS);
         homePage = new HomePage(driver);
 
         ensureNoLogin();
