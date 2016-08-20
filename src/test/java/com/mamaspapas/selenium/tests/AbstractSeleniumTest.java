@@ -74,6 +74,7 @@ public abstract class AbstractSeleniumTest
         ChromeOptions options = new ChromeOptions();
         options.addArguments(Arrays.asList("--start-maximized", "allow-running-insecure-content", "ignore-certificate-errors","--no-sandbox"));
         options.setExperimentalOption("prefs", prefs);
+        options.setBinary("/etc/chromedriver");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 
         capabilities.setCapability("enable-restore-session-state", true);
