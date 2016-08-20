@@ -4,7 +4,9 @@ import com.mamaspapas.selenium.helper.UrlFactory;
 import com.mamaspapas.selenium.pages.HomePage;
 import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
@@ -14,12 +16,16 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +42,8 @@ public abstract class AbstractSeleniumTest
     private static final String AJAX_WAIT_SCRIPT = "return typeof jQuery != 'undefined' && jQuery.active != 0";
     private static final Logger logger = Logger.getLogger(AbstractSeleniumTest.class);
     protected static WebDriver driver;
+    private static ChromeDriverService service;
+
     @Rule
     public TestRule testRule = new TestWatcher()
     {
@@ -66,6 +74,20 @@ public abstract class AbstractSeleniumTest
     protected WebDriverWait webDriverWait;
     protected HomePage homePage;
 
+    @BeforeClass
+    public static void createAndStartService() throws IOException
+    {
+        service = new ChromeDriverService.Builder()
+                .usingDriverExecutable(new File("/etc/chromedriver"))
+                .usingAnyFreePort()
+                .build();
+        service.start();
+    }
+
+    @AfterClass
+    public static void createAndStopService() {
+        service.stop();
+    }
     @Before
     public void setUp()
     {
@@ -74,13 +96,15 @@ public abstract class AbstractSeleniumTest
         ChromeOptions options = new ChromeOptions();
         options.addArguments(Arrays.asList("--start-maximized", "allow-running-insecure-content", "ignore-certificate-errors","--no-sandbox"));
         options.setExperimentalOption("prefs", prefs);
-        options.setBinary("/etc/chromedriver");
+//        options.setBinary("/etc/chromedriver");
+
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 
         capabilities.setCapability("enable-restore-session-state", true);
         capabilities.setJavascriptEnabled(true);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        driver = new EventFiringWebDriver(new ChromeDriver(capabilities));;
+        driver = new RemoteWebDriver(service.getUrl(),
+                DesiredCapabilities.chrome());
         webDriverWait = new WebDriverWait(driver, 30);
         driver.manage().window().setSize(new Dimension(1200, 800));
         homePage = new HomePage(driver);
