@@ -94,7 +94,8 @@ public abstract class AbstractSeleniumTest
         Map<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.default_content_setting_values.notifications", 2);
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(Arrays.asList("--start-maximized", "allow-running-insecure-content", "ignore-certificate-errors","--no-sandbox"));
+        options.addArguments(Arrays.asList("--start-maximized", "allow-running-insecure-content", "ignore-certificate-errors"));
+        options.addArguments("--no-sandbox");
         options.setExperimentalOption("prefs", prefs);
 //        options.setBinary("/etc/chromedriver");
 
@@ -104,7 +105,7 @@ public abstract class AbstractSeleniumTest
         capabilities.setJavascriptEnabled(true);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         driver = new RemoteWebDriver(service.getUrl(),
-                DesiredCapabilities.chrome());
+                capabilities);
         webDriverWait = new WebDriverWait(driver, 30);
         driver.manage().window().setSize(new Dimension(1200, 800));
         homePage = new HomePage(driver);
