@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -23,6 +24,7 @@ import java.net.URISyntaxException;
 /**
  * Created by can on 19/08/16.
  */
+@Category(ApiRegressionTestSuite.class)
 public class CategoryApiTest extends AbstractApiTest
 {
 

@@ -6,12 +6,14 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Created by can on 15/08/16.
  */
+@Category(SeleniumRegressionTestSuite.class)
 public class SearchTest extends AbstractSeleniumTest
 {
     private final String SEARCH_WORD = "red";

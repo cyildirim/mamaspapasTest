@@ -3,16 +3,20 @@ package com.mamaspapas.selenium.tests;
 import com.mamaspapas.selenium.helper.UrlFactory;
 import com.mamaspapas.selenium.pages.FacebookPage;
 import com.mamaspapas.selenium.pages.HomePage;
+import org.apache.http.annotation.NotThreadSafe;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Created by can on 15/08/16.
  */
+@NotThreadSafe
+@Category(SeleniumRegressionTestSuite.class)
 public class FacebookLoginTest extends AbstractSeleniumTest
 {
     private static final String FB_GRANTED_ACCESS_USER_EMAIL = "ktwxjgb_sharpeman_1465123980@tfbnw.net";

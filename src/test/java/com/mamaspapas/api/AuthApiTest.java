@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.IOException;
 import java.time.Clock;
@@ -23,6 +24,7 @@ import java.util.Random;
 /**
  * Created by can on 19/08/16.
  */
+@Category(ApiRegressionTestSuite.class)
 public class AuthApiTest extends AbstractApiTest
 {
     private final static String CONSUMER_KEY = "98ues8ev9h4483lakbkv5d3iol0h4cv2";

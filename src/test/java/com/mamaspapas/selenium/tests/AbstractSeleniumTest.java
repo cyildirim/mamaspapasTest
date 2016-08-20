@@ -83,7 +83,6 @@ public abstract class AbstractSeleniumTest
         options.addArguments(Arrays.asList("--start-maximized", "allow-running-insecure-content", "ignore-certificate-errors"));
         options.addArguments("--no-sandbox");
         options.setExperimentalOption("prefs", prefs);
-//        options.setBinary("/etc/chromedriver");
 
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 

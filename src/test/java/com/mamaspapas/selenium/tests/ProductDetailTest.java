@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -16,6 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 /**
  * Created by can on 15/08/16.
  */
+@Category(SeleniumRegressionTestSuite.class)
 public class ProductDetailTest extends AbstractSeleniumTest
 {
     private final String PRODUCT_NAME = "Baby Snug - Red";
