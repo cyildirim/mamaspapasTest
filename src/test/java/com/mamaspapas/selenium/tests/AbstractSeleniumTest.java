@@ -57,7 +57,7 @@ public abstract class AbstractSeleniumTest
         @Override
         protected void finished(Description description)
         {
-            logger.info(" === TEST FINISHED === " + description.getDisplayName()+ "\n\n");
+            logger.info(" === TEST FINISHED === " + description.getDisplayName() + "\n\n");
         }
     };
     protected WebDriverWait webDriverWait;
@@ -113,7 +113,7 @@ public abstract class AbstractSeleniumTest
         webDriverWait.until(ExpectedConditions.visibilityOf(homePage.searchSuggestionFirstLink));
         homePage.searchSuggestionFirstLink.click();
         waitForAjax();
-        logger.info("Navigated to product with " + searchSuggestionKeyword );
+        logger.info("Navigated to product with " + searchSuggestionKeyword);
 
     }
 
