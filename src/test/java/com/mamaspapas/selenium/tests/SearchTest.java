@@ -45,7 +45,7 @@ public class SearchTest extends AbstractSeleniumTest
     }
 
     @Test
-    public void testCouldNotFindAnyting() throws InterruptedException
+    public void testCouldNotFindAnything() throws InterruptedException
     {
         homePage.searchInput.sendKeys(NOT_FOUND_SEARCH_WORD + Keys.ENTER);
         waitForAjax();
