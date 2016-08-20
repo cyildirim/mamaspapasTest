@@ -70,7 +70,6 @@ public abstract class AbstractSeleniumTest
         prefs.put("profile.default_content_setting_values.notifications", 2);
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", prefs);
-        options.setBinary("/etc/chromedriver");
         driver = new ChromeDriver(options);
         webDriverWait = new WebDriverWait(driver, 30);
         driver.manage().window().setSize(new Dimension(1024, 768));
