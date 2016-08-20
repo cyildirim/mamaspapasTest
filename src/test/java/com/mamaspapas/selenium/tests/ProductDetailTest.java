@@ -125,6 +125,17 @@ public class ProductDetailTest extends AbstractSeleniumTest
 
     }
 
+    @Test
+    public void testQuantityZero() throws InterruptedException
+    {
+        navigateProductDetail(PRODUCT_NAME);
+        waitForAjax();
+
+        Assert.assertTrue(productDetailPage.decreaseQuantityButton.getAttribute("class").contains("disabled"));
+
+        Assert.assertEquals(productDetailPage.quantityInput.getAttribute("value"), "1");
+    }
+
 
     @Test
     public void testProductAddToBasket() throws InterruptedException

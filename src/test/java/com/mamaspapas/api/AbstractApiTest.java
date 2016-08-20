@@ -13,6 +13,10 @@ import org.junit.runner.Description;
 public abstract class AbstractApiTest
 {
     private static final Logger logger = Logger.getLogger(AbstractApiTest.class);
+    private Long testStart;
+    private Long testEnd;
+    private Long duration = null;
+
     @Rule
     public TestRule testRule = new TestWatcher()
     {
@@ -20,6 +24,7 @@ public abstract class AbstractApiTest
         protected void starting(Description description)
         {
             logger.info(" === TEST STARTED === " + description.getDisplayName());
+            testStart = System.currentTimeMillis();
         }
 
         @Override
@@ -38,6 +43,12 @@ public abstract class AbstractApiTest
         protected void finished(Description description)
         {
             logger.info(" === TEST FINISHED === " + description.getDisplayName() + "\n\n");
+            testEnd = System.currentTimeMillis();
+
+
+            duration = testEnd - testStart;
+            duration = duration / 1000L;
+            logger.info("--- DURATION = " + duration + " second  " + description.getDisplayName());
         }
     };
 }

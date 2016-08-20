@@ -4,7 +4,6 @@ import com.mamaspapas.selenium.helper.UrlFactory;
 import com.mamaspapas.selenium.pages.FacebookPage;
 import com.mamaspapas.selenium.pages.HomePage;
 import org.apache.http.annotation.NotThreadSafe;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,11 +40,6 @@ public class FacebookLoginTest extends AbstractSeleniumTest
 
     //--
 
-    @After
-    public void tearDown()
-    {
-        super.tearDown();
-    }
 
     @Test
     public void testLoginWithAlreadyGrantedAccess()
