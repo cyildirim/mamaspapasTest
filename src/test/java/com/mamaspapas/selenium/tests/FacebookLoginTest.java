@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -25,6 +24,7 @@ public class FacebookLoginTest extends AbstractSeleniumTest
 
     private HomePage homePage;
     private FacebookPage facebookPage;
+
 
     @Before
     public void setUp()
@@ -48,7 +48,7 @@ public class FacebookLoginTest extends AbstractSeleniumTest
     {
         clickLoginWithFb();
         loginToFacebook(FB_GRANTED_ACCESS_USER_EMAIL, FB_USER_PASS);
-        webDriverWait.until(ExpectedConditions.urlMatches(UrlFactory.BASE_URL.pageUrl + ".*"));
+        webDriverWait.until(ExpectedConditions.urlMatches(UrlFactory.BASE_URL.url + ".*"));
         Assert.assertTrue(homePage.userInfoBoxUserName.getText().equals(FB_GRANTED_ACCESS_USER_NAME));
     }
 
@@ -56,13 +56,25 @@ public class FacebookLoginTest extends AbstractSeleniumTest
     public void testLoginWithGrantAccess()
     {
         deleteAppAccessIfExist(FB_NOT_GRANTED_USER_EMAIL, FB_USER_PASS);
-        driver.get(UrlFactory.BASE_URL.pageUrl);
+        driver.get(UrlFactory.BASE_URL.url);
         clickLoginWithFb();
         loginToFacebook(FB_NOT_GRANTED_USER_EMAIL, FB_USER_PASS);
         webDriverWait.until(ExpectedConditions.visibilityOf(facebookPage.approveApplication));
         facebookPage.approveApplication.click();
-        webDriverWait.until(ExpectedConditions.urlMatches(UrlFactory.BASE_URL.pageUrl + ".*"));
+        webDriverWait.until(ExpectedConditions.urlMatches(UrlFactory.BASE_URL.url + ".*"));
         Assert.assertTrue(homePage.userInfoBoxUserName.getText().equals(FB_NOT_GRANTED_USER_NAME));
+    }
+
+    @Test
+    public void testCancelApplication()
+    {
+        deleteAppAccessIfExist(FB_NOT_GRANTED_USER_EMAIL, FB_USER_PASS);
+        driver.get(UrlFactory.BASE_URL.url);
+        clickLoginWithFb();
+        loginToFacebook(FB_NOT_GRANTED_USER_EMAIL, FB_USER_PASS);
+        webDriverWait.until(ExpectedConditions.visibilityOf(facebookPage.cancelApplication));
+        facebookPage.cancelApplication.click();
+        webDriverWait.until(ExpectedConditions.urlMatches(UrlFactory.BASE_URL.url + "/customer/fb-callback\\?error=access_denied.*"));
     }
 
     //--
@@ -77,7 +89,7 @@ public class FacebookLoginTest extends AbstractSeleniumTest
 
     private void deleteAppAccessIfExist(String username, String pass)
     {
-        driver.get(UrlFactory.FB_APP_PAGE_URL.pageUrl);
+        driver.get(UrlFactory.FB_APP_PAGE_URL.url);
         loginToFacebook(username, pass);
 
         try
@@ -96,19 +108,20 @@ public class FacebookLoginTest extends AbstractSeleniumTest
 
         }
         logOutFromFacebook();
-        driver.get(UrlFactory.BASE_URL.pageUrl);
+        driver.get(UrlFactory.BASE_URL.url);
     }
 
 
     private void logOutFromFacebook()
     {
-        driver.get(UrlFactory.FB_BASE_URL.pageUrl);
+        driver.get(UrlFactory.FB_BASE_URL.url);
         driver.manage().deleteAllCookies();
         driver.navigate().refresh();
-        driver.get(UrlFactory.BASE_URL.pageUrl);
+        driver.get(UrlFactory.BASE_URL.url);
     }
 
-    private void clickLoginWithFb(){
+    private void clickLoginWithFb()
+    {
         homePage.headerLoginLink.click();
         webDriverWait.until(ExpectedConditions.visibilityOf(homePage.loginForm));
         Assert.assertTrue("Login Form Displayed", homePage.loginForm.isDisplayed());

@@ -26,4 +26,26 @@ public class HomePage extends PageObject
     @FindBy(css = "#user-info-box span strong")
     public WebElement userInfoBoxUserName;
 
+    @FindBy(css = ".quick-search input[type=text]")
+    public WebElement searchInput;
+
+    @FindBy(css = ".quick-search input[type=submit]")
+    public WebElement searchSubmitButton;
+
+    @FindBy(css = ".quick-search .inner a")
+    public WebElement searchSuggestionFirstLink;
+
+    //login form
+
+    @FindBy(css = "#login-modal input[name=email]")
+    public WebElement inputEmail;
+
+    @FindBy(css = "#login-modal input[name=password]")
+    public WebElement inputPassword;
+
+    @FindBy(css = "#login-modal button[type=submit]")
+    public WebElement loginSubmitButton;
+
+    @FindBy(css = "#user-info-box")
+    public WebElement userInfoBox;
 }

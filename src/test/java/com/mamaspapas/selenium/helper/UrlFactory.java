@@ -5,22 +5,26 @@ package com.mamaspapas.selenium.helper;
  */
 public enum UrlFactory
 {
+
+    API_BASE_URL("http://magento-dev.atg.digital/rest/default/V1"),
+    API_CATEGORIES_URL(API_BASE_URL,"/categories"),
+    API_GIFT_URL(API_BASE_URL,"/gift-wrappings?searchCriteria[filterGroups][0][filters][0][field]=status&searchCriteria[filterGroups][0][filters][0][value]=1"),
     BASE_URL("https://www.mamasandpapas.ae"),
+    FAVORITES_PAGE(BASE_URL, "/customer/favorites"),
     FB_APP_PAGE_URL("https://www.facebook.com/settings?tab=applications"),
-    FB_BASE_URL("https://www.facebook.com/")
-    ;
+    FB_BASE_URL("https://www.facebook.com/");
 
     //--
 
-    public final String pageUrl;
+    public final String url;
 
-    UrlFactory(String pageUrl)
+    UrlFactory(String url)
     {
-        this.pageUrl = pageUrl;
+        this.url = url;
     }
 
-    UrlFactory(UrlFactory baseUrl, String pageUrl)
+    UrlFactory(UrlFactory baseUrl, String url)
     {
-        this.pageUrl = baseUrl.pageUrl + pageUrl;
+        this.url = baseUrl.url + url;
     }
 }
