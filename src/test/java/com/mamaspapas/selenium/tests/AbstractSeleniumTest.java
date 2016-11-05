@@ -21,11 +21,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.safari.SafariDriverService;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,12 +43,12 @@ public abstract class AbstractSeleniumTest
     private static final String AJAX_WAIT_SCRIPT = "return typeof jQuery != 'undefined' && jQuery.active != 0";
     private static final Logger logger = Logger.getLogger(AbstractSeleniumTest.class);
     protected static WebDriver driver;
+    private static SafariDriverService driverService;
     protected WebDriverWait webDriverWait;
     protected HomePage homePage;
     private Long testStart;
     private Long testEnd;
     private Long duration;
-
     @Rule
     public TestRule testRule = new TestWatcher()
     {
@@ -86,21 +87,20 @@ public abstract class AbstractSeleniumTest
     };
 
     @BeforeClass
-    public static void setUpClass()
+    public static void setUpClass() throws IOException
     {
-        Map<String, Object> prefs = new HashMap<String, Object>();
-        prefs.put("profile.default_content_setting_values.notifications", 2);
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments(Arrays.asList("--start-maximized", "allow-running-insecure-content", "ignore-certificate-errors"));
         options.addArguments("--no-sandbox");
-        options.setExperimentalOption("prefs", prefs);
 
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 
         capabilities.setCapability("enable-restore-session-state", true);
         capabilities.setJavascriptEnabled(true);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        driver = new EventFiringWebDriver(new ChromeDriver(capabilities));
+
+        driver = new ChromeDriver(capabilities);
 
         driver.manage().window().setSize(new Dimension(1200, 800));
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);

@@ -27,10 +27,10 @@ import java.util.Random;
 @Category(ApiRegressionTestSuite.class)
 public class AuthApiTest extends AbstractApiTest
 {
-    private final static String CONSUMER_KEY = "98ues8ev9h4483lakbkv5d3iol0h4cv2";
-    private final static String CONSUMER_SECRET = "3r0atn649l383pn9p9ho4qdismnm4pth";
-    private final static String TOKEN = "v0c6arxqo8pu54s4xqwjh5nt6nnkfupy";
-    private final static String TOKEN_SECRET = "g17mq5w59v9epkt92m0cd4v10rh3vudf";
+    private final static String CONSUMER_KEY = "{CONSUMER_KEY_HERE}";
+    private final static String CONSUMER_SECRET = "{CONSUMER_SECRET_HERE}";
+    private final static String TOKEN = "{TOKEN_HERE}";
+    private final static String TOKEN_SECRET = "{TOKEN_SECRET_HERE}";
     Request request;
     Request signed;
     Response response;
