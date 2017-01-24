@@ -20,7 +20,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 @Category(SeleniumRegressionTestSuite.class)
 public class ProductDetailTest extends AbstractSeleniumTest
 {
-    private final String PRODUCT_NAME = "Baby Snug - Red";
+    private final String PRODUCT_NAME = "Baby Snug - Blue";
     private ProductDetailPage productDetailPage;
     private FavoritesPage favoritesPage;
     private ShoppingCartPage shoppingCartPage;
